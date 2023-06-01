@@ -1,7 +1,6 @@
 class Store < ApplicationRecord
   has_many :ratings
-
-  validates :lonlat, :name, :google_place_id, presence: true
+  validates_presence_of :lonlat, :name, :google_place_id
   validates :google_place_id, uniqueness: true
 
   scope :within, -> (longitude, latitude, distance_in_km = 5) {
@@ -10,7 +9,7 @@ class Store < ApplicationRecord
     } % [longitude, latitude, distance_in_km * 1000])
   }
 
-  def rating_average
+  def ratings_average
     return 0 if self.ratings.empty?
     (self.ratings.sum(:value) / self.ratings.count).to_i
   end

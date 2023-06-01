@@ -1,20 +1,18 @@
-module Api::V1
-  class StoresController < ApplicationController
-    before_action :set_store, only: [:show]
+class Api::V1::StoresController < ApplicationController
+  before_action :set_store, only: [:show]
 
-    def index
-      @stores = Store.within(params[:longitude].to_f, params[:latitude].to_f)
-      .sort_by{ |store| store.rating_average }
+  def index
+    @stores = Store.within(params[:longitude].to_f, params[:latitude].to_f)
+      .sort_by { |store| store.ratings_average }
       .reverse
-    end
+  end
 
-    def show
-    end
+  def show
+  end
 
-    private
+  private
 
-    def set_store
-      @store = Store.find_by!(google_place_id: params[:id])
-    end
+  def set_store
+    @store = Store.find_by!(google_place_id: params[:id])
   end
 end

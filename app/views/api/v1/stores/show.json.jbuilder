@@ -12,4 +12,4 @@ json.ratings @store.ratings do |rating|
 end
 
 json.ratings_count @store.ratings.count
-json.rating_average @store.rating_average
+json.ratings_average @store.ratings_average
